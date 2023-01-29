@@ -198,8 +198,8 @@ clean:
 CC_SDL=`sdl2-config --cflags --libs`
 
 main: examples/main/main.cpp ggml.o whisper.o
-	$(CXX) $(CXXFLAGS) examples/main/main.cpp ggml.o whisper.o -o main $(LDFLAGS)
-	./main -h
+	$(CXX) $(CXXFLAGS) examples/main/main.cpp ggml.o whisper.o -o whisper $(LDFLAGS)
+	./whisper -h
 
 stream: examples/stream/stream.cpp ggml.o whisper.o
 	$(CXX) $(CXXFLAGS) examples/stream/stream.cpp ggml.o whisper.o -o stream $(CC_SDL) $(LDFLAGS)

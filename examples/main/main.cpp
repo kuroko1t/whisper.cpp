@@ -8,6 +8,7 @@
 #include <cmath>
 #include <fstream>
 #include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <thread>
 #include <vector>
@@ -52,8 +53,11 @@ void replace_all(std::string & s, const std::string & search, const std::string 
 
 // command-line parameters
 struct whisper_params {
-    int32_t n_threads    = std::min(4, (int32_t) std::thread::hardware_concurrency());
-    int32_t n_processors = 1;
+    //int32_t n_threads    = std::min(4, (int32_t) std::thread::hardware_concurrency());
+    //const auto processor_count = ;
+    //int32_t n_processors = 1;
+    int32_t n_threads = std::thread::hardware_concurrency();
+    int32_t n_processors = (int32_t) n_threads / 2;
     int32_t offset_t_ms  = 0;
     int32_t offset_n     = 0;
     int32_t duration_ms  = 0;
@@ -79,9 +83,11 @@ struct whisper_params {
     bool print_progress = false;
     bool no_timestamps  = false;
 
-    std::string language = "en";
+    std::string language = "ja";
     std::string prompt;
-    std::string model    = "models/ggml-base.en.bin";
+    //std::string model    = "models/ggml-base.bin";
+    std::string homedir = std::getenv("HOME");
+    std::string model    = homedir + "/.cache/ggml-medium.bin";
 
     std::vector<std::string> fname_inp = {};
     std::vector<std::string> fname_outp = {};
